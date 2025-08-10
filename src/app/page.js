@@ -1,17 +1,34 @@
 "use client";
 
-import { useState, useEffect } from 'react';
-import { Star, Heart, Users, BookOpen, Palette, Music, Trophy, ArrowRight, Phone, Mail, MapPin, Facebook, Instagram, Twitter } from 'lucide-react';
+import { useState, useEffect } from "react";
+import Image from "next/image"; 
+import {
+  Star,
+  Heart,
+  Users,
+  BookOpen,
+  Palette,
+  Music,
+  Trophy,
+  ArrowRight,
+  Phone,
+  Mail,
+  MapPin,
+  Facebook,
+  Instagram,
+  Twitter,
+} from "lucide-react";
 
 export default function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
 
-  const heroImages = [
-    "https://isolated-moccasin-048akshog1.edgeone.app/img1.jpeg",
-    "https://disciplinary-plum-ujimpjxcej.edgeone.app/img3.jpeg",
-    "https://solar-orange-a7afjaerar.edgeone.app/img2.jpeg"
+ const heroImages = [
+    "/images/img1.jpeg",
+    "/images/img2.jpeg",
+    "/images/img3.jpeg",
   ];
+
 
   const features = [
     { icon: BookOpen, title: "Creative Learning", desc: "Interactive and engaging curriculum" },
@@ -28,13 +45,13 @@ export default function Home() {
     { name: "Emma Williams", text: "Best decision we made for our child's education.", rating: 5 }
   ];
 
-  useEffect(() => {
+useEffect(() => {
     setIsVisible(true);
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % heroImages.length);
-    }, 5000);
+    }, 3000); // Change slide every 3s
     return () => clearInterval(interval);
-  }, []);
+  }, [heroImages.length]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
@@ -95,11 +112,14 @@ export default function Home() {
             </div>
             <div className={`relative transform transition-all duration-1000 delay-300 ${isVisible ? 'translate-x-0 opacity-100' : 'translate-x-10 opacity-0'}`}>
               <div className="relative overflow-hidden rounded-3xl shadow-2xl">
-                <img
-                  src={heroImages[currentSlide]}
-                  alt="Happy children learning"
-                  className="w-full h-96 object-cover transition-all duration-1000"
-                />
+               <Image
+            src={heroImages[currentSlide]}
+            alt="Happy children learning"
+            width={800}
+            height={400}
+            className="w-full h-96 object-cover transition-all duration-1000"
+            priority
+          />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
               </div>
               <div className="absolute -top-4 -right-4 w-20 h-20 bg-yellow-400 rounded-full animate-bounce flex items-center justify-center">
